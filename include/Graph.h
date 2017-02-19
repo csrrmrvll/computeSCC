@@ -1,31 +1,23 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <ostream>
-#include <vector>
+#include <utility>
 #include "AdjacencyList.h"
-#include "Edge.h"
-#include "Vertex.h"
 
-using Vertices = std::vector<Vertex>;
-using Edges = std::vector<Edge>;
-using Vector = std::vector<int>;
+using Edges = std::pair<AdjacencyList::const_iterator, AdjacencyList::const_iterator>;
+
+class Vertex;
 
 class Graph
 {
 public:
+    Graph(AdjacencyList && al);
     Graph(const AdjacencyList & al);
-    Vertices & vertices();
-    const Vertices & vertices() const;
-    Edges & edges();
-    const Edges & edges() const;
+    Edges edges(const Vertex & v) const;
+    const AdjacencyList & map() const { return this->map_; }
 
 private:
-    Vertices vertices_;
-    Edges edges_;
+    AdjacencyList map_;
 };
-
-std::ostream & operator<<(std::ostream & os, Edges & edges);
-std::ostream & operator<<(std::ostream & os, Vertices & vertices);
 
 #endif // GRAPH_H

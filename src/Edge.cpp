@@ -5,7 +5,7 @@
 using namespace std;
 
 Edge::Edge(const Vertex & a, const Vertex & b)
-:   endpoints_(std::make_pair(min(a,b),max(a,b)))
+:   endpoints_(std::make_pair(a,b))
 {
 }
 

@@ -6,6 +6,7 @@
 #include "AdjacencyList.h"
 #include "Graph.h"
 #include "SCC.h"
+#include "Vertex.h"
 
 using namespace std;
 using Vector = vector<int>;
@@ -32,7 +33,7 @@ AdjacencyList read()
 //            copy(begin(v),end(v),ostream_iterator<int>(cout, " "));
 //            cout << endl;
             const Vertex vertex{v[0]};
-            al[vertex] = VVector(++begin(v),end(v));
+            al.insert(make_pair(Vertex(v[0]), Vertex(v[1])));
         }
     }
     else
@@ -51,9 +52,9 @@ ostream & operator<<(ostream & out, const Vector & v)
 
 int main()
 {
-    const AdjacencyList al{read()};
-    const Graph g{al};
-    const Vector sizes = SCC::compute(g);
+    const Graph g{read()};
+    SCC scc;
+    const Vector sizes = scc.compute(g);
     cout << "SCC sizes: " << sizes << endl;
     return 0;
 }

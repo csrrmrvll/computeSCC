@@ -7,6 +7,7 @@
 class Vertex
 {
 public:
+    Vertex() : id_(-1) {}
     Vertex(int id);
     int id() const;
 

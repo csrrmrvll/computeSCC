@@ -2,10 +2,8 @@
 #define ADJACENCYLIST_H
 
 #include <map>
-#include <vector>
 
 class Vertex;
-using VVector = std::vector<Vertex>;
-using AdjacencyList = std::map<Vertex,VVector>;
+using AdjacencyList = std::multimap<Vertex,Vertex>;
 
 #endif // ADJACENCYLIST_H
