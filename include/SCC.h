@@ -9,18 +9,19 @@ using Vertex = int;
 using Nodes = std::set<Vertex>;
 using ExploredNodes = Nodes;
 using Graph = std::multimap<Vertex,Vertex>;
+using Graphs = std::pair<Graph,Graph>;
 using Edge = Graph::value_type;
 using NodeIterator = Graph::const_iterator;
 using Edges = std::pair<NodeIterator,NodeIterator>;
 using FinishingTimes = std::map<Vertex, int>;
 using SCCs = std::map<Vertex, Nodes>;
-using Vector = std::vector<int>;
+using SCCSizes = std::vector<size_t>;
 
 class SCC
 {
 public:
-    SCC(Graph && graph);
-    Vector compute();
+    SCC(Graphs && graphs);
+    SCCSizes compute();
 
 private:
     bool notExplored(const Vertex & v);
@@ -31,7 +32,8 @@ private:
 
     ExploredNodes explored_;
     FinishingTimes finishingTimes_;
-    const Graph graph_;
+    const Graph g_;
+    const Graph gRev_;
     SCCs sccs_;
     size_t t_;
 };

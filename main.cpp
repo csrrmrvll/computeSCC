@@ -7,28 +7,29 @@
 
 using namespace std;
 
-Graph read()
+Graphs read()
 {
-    Graph g;
+    Graph g, gRev;
     ifstream is;
-//    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\SCC.txt",ios::in);
-    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc1.txt",ios::in);
+    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\SCC.txt",ios::in);
+//    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc1.txt",ios::in);
 //    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc2.txt",ios::in);
 //    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc3.txt",ios::in);
 //    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc4.txt",ios::in);
 //    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc5.txt",ios::in);
-//    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc6.txt",ios::in);
     if (is.is_open())
     {
         string line;
         while (getline(is,line))
         {
+            using Vector = vector<int>;
             Vector v;
             istringstream iss(line);
             copy(istream_iterator<int>(iss),istream_iterator<int>(), back_insert_iterator<Vector>(v));
             copy(begin(v), end(v), ostream_iterator<int>(cout, " "));
             cout << endl;
             g.insert(make_pair(Vertex(v[0]), Vertex(v[1])));
+            gRev.insert(make_pair(Vertex(v[1]), Vertex(v[0])));
         }
     }
     else
@@ -36,10 +37,10 @@ Graph read()
         throw runtime_error("File is not open!!");
     }
     is.close();
-    return g;
+    return move(make_pair(g, gRev));
 }
 
-ostream & operator<<(ostream & out, const Vector & v)
+ostream & operator<<(ostream & out, const SCCSizes & v)
 {
     copy(begin(v), end(v), ostream_iterator<int>(cout,","));
     return out;
@@ -48,7 +49,7 @@ ostream & operator<<(ostream & out, const Vector & v)
 int main()
 {
     SCC scc(read());
-    const Vector sizes = scc.compute();
+    const SCCSizes sizes = scc.compute();
     cout << "SCC sizes: " << sizes << endl;
     return 0;
 }
