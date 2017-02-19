@@ -52,8 +52,8 @@ void SCC::DFS2(const NodeIterator first, const NodeIterator last, const Vertex &
 
 void SCC::DFS_loop1()
 {
-    size_t size = this->graph_.size();
-    for (Vertex i = --size; i > 0; --i)
+    size_t nodes = (--this->graph_.end())->first;
+    for (Vertex i = nodes; i > 0; --i)
     {
         const NodeIterator nit = this->graph_.lower_bound(i);
         const Vertex & v = nit->first;
