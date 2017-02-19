@@ -2,30 +2,37 @@
 #define SCC_H
 
 #include <map>
-#include <vector>
 #include <set>
+#include <utility>
 
-class Graph;
-
+using Vertex = int;
+using Nodes = std::set<Vertex>;
+using ExploredNodes = Nodes;
+using Graph = std::multimap<Vertex,Vertex>;
+using Edge = Graph::value_type;
+using NodeIterator = Graph::const_iterator;
+using Edges = std::pair<NodeIterator,NodeIterator>;
 using FinishingTimes = std::map<Vertex, int>;
-using Leaders = std::map<Vertex, Vertex>;
+using SCCs = std::map<Vertex, Nodes>;
 using Vector = std::vector<int>;
-using Set = std::set<Vertex>;
 
 class SCC
 {
 public:
-    Vector compute(const Graph & graph);
+    SCC(Graph && graph);
+    Vector compute();
 
 private:
     bool notExplored(const Vertex & v);
-    void DFS(const Graph & g, const Vertex & v, const Vertex & s);
-    void DFS_loop(const Graph & g);
-    static Graph && reverse(const Graph & g);
+    void DFS1(const NodeIterator first, const NodeIterator last, const Vertex & v);
+    void DFS2(const NodeIterator first, const NodeIterator last, const Vertex & v, const Vertex & s);
+    void DFS_loop1();
+    void DFS_loop2();
 
+    ExploredNodes explored_;
     FinishingTimes finishingTimes_;
-    Leaders leaders_;
-    Set explored_;
+    const Graph graph_;
+    SCCs sccs_;
     size_t t_;
 };
 
