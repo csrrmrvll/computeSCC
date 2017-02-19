@@ -21,7 +21,7 @@ private:
     bool notExplored(const Vertex & v);
     void DFS(const Graph & g, const Vertex & v, const Vertex & s);
     void DFS_loop(const Graph & g);
-    static Graph reverse(const Graph & g);
+    static Graph && reverse(const Graph & g);
 
     FinishingTimes finishingTimes_;
     Leaders leaders_;

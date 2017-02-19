@@ -43,7 +43,7 @@ void SCC::DFS_loop(const Graph & g)
              });
 }
 
-Graph SCC::reverse(const Graph & g)
+Graph && SCC::reverse(const Graph & g)
 {
     const AdjacencyList & map = g.map();
     AdjacencyList result;
@@ -52,7 +52,7 @@ Graph SCC::reverse(const Graph & g)
              {
                 result.insert(make_pair(v.second, v.first));
              });
-    return Graph(result);
+    return move(Graph(result));
 }
 
 Vector SCC::compute(const Graph & g)
