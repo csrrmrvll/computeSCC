@@ -15,7 +15,7 @@ using NodeIterator = Graph::const_iterator;
 using Edges = std::pair<NodeIterator,NodeIterator>;
 using FinishingTimes = std::map<Vertex, int>;
 using SCCs = std::map<Vertex, Nodes>;
-using SCCSizes = std::vector<size_t>;
+using SCCSizes = std::multiset<size_t,std::greater<size_t>>;
 
 class SCC
 {
@@ -24,9 +24,9 @@ public:
     SCCSizes compute();
 
 private:
-    bool notExplored(const Vertex & v);
-    void DFS1(const NodeIterator first, const NodeIterator last, const Vertex & v);
-    void DFS2(const NodeIterator first, const NodeIterator last, const Vertex & v, const Vertex & s);
+    bool notExplored(Vertex v);
+    void DFS1(Vertex v);
+    void DFS2(Vertex v);
     void DFS_loop1();
     void DFS_loop2();
 

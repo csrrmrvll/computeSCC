@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iterator>
+#include <stack>
 #include "SCC.h"
 
 using namespace std;
@@ -14,38 +15,63 @@ SCC::SCC(Graphs && graphs)
 {
 }
 
-bool SCC::notExplored(const Vertex & v)
+bool SCC::notExplored(Vertex v)
 {
     return this->explored_.count(v) == 0;
 }
 
-void SCC::DFS1(const NodeIterator first, const NodeIterator last, const Vertex & v)
+void SCC::DFS1(Vertex v)
 {
-    this->explored_.insert(v);
-    for_each(first, last,
-             [this](const Edge & e)
-             {
-                const Vertex & w = e.second;
+    stack<int> s;
+    s.push(v);
+    while (s.empty() == false)
+    {
+        v = s.top();
+        s.pop();
+        if (this->notExplored(v))
+        {
+            this->explored_.insert(v);
+            s.push(v);
+            const Edges edges = this->gRev_.equal_range(v);
+            for (auto it = edges.first; it != edges.second; ++it)
+            {
+                Vertex w = it->second;
                 if (this->notExplored(w))
                 {
-                    const Edges edges = this->gRev_.equal_range(w);
-                    DFS1(edges.first, edges.second, w);
+                    s.push(w);
                 }
-             });
-    this->finishingTimes_[++this->t_] = v;
+            }
+        }
+        else
+        {
+            this->finishingTimes_[++this->t_] = v;
+        }
+    }
 }
 
-void SCC::DFS2(const NodeIterator first, const NodeIterator last, const Vertex & v, const Vertex & s)
+void SCC::DFS2(Vertex v)
 {
-    this->explored_.insert(v);
-    this->sccs_[s].insert(v);
-    for (NodeIterator it = first ; it != last; ++it)
+    stack<int> s;
+    s.push(v);
+    Vertex leader = v;
+    while (s.empty() == false)
     {
-        const Vertex & w = it->second;
-        if (this->notExplored(w))
+        v = s.top();
+        s.pop();
+        if (this->notExplored(v))
         {
-            const Edges edges = this->g_.equal_range(w);
-            DFS2(edges.first, edges.second, w, s);
+            this->explored_.insert(v);
+            s.push(v);
+            this->sccs_[leader].insert(v);
+            const Edges edges = this->g_.equal_range(v);
+            for (auto it = edges.first; it != edges.second; ++it)
+            {
+                Vertex w = it->second;
+                if (this->notExplored(w))
+                {
+                    s.push(w);
+                }
+            }
         }
     }
 }
@@ -54,26 +80,22 @@ void SCC::DFS_loop1()
 {
     for (auto rnit = rbegin(this->gRev_); rnit != rend(this->gRev_); ++rnit)
     {
-        const Vertex & v = rnit->first;
-        const NodeIterator nit = this->gRev_.lower_bound(v);
+        const Vertex v = rnit->first;
         if (this->notExplored(v))
         {
-            DFS1(nit, this->gRev_.upper_bound(v), v);
+            DFS1(v);
         }
     }
 }
 
 void SCC::DFS_loop2()
 {
-    Vertex s = Vertex();
     for (auto rit = rbegin(this->finishingTimes_); rit != rend(this->finishingTimes_); ++rit)
     {
-        const Vertex & v = rit->second;
+        const Vertex v = rit->second;
         if (this->notExplored(v))
         {
-            s = v;
-            const Edges edges = this->g_.equal_range(v);
-            DFS2(edges.first, edges.second, v, s);
+            DFS2(v);
         }
     }
 }
@@ -84,9 +106,15 @@ SCCSizes SCC::compute()
     this->explored_.clear();
     DFS_loop2();
     SCCSizes sccSizes;
+    size_t count = 5;
     for (auto & v : this->sccs_)
     {
-        sccSizes.emplace_back(v.second.size());
+        if (count-- == 0) break;
+        sccSizes.insert(v.second.size());
+    }
+    while (count-- != 0)
+    {
+        sccSizes.insert(0);
     }
     return sccSizes;
 }
