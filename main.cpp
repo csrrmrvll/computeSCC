@@ -11,7 +11,7 @@ Graphs read()
 {
     Graph g, gRev;
     ifstream is;
-    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\SCC.txt",ios::in);
+    is.open("/home/csr/dev/computeSCC/SCC.txt",ios::in);
 //    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc1.txt",ios::in);
 //    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc2.txt",ios::in);
 //    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc3.txt",ios::in);
