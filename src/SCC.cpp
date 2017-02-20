@@ -106,13 +106,13 @@ SCCSizes SCC::compute()
     this->explored_.clear();
     DFS_loop2();
     SCCSizes sccSizes;
-    size_t count = 5;
+    int count = 5;
     for (auto & v : this->sccs_)
     {
         if (count-- == 0) break;
         sccSizes.insert(v.second);
     }
-    while (count-- != 0)
+    while (count-- > 0)
     {
         sccSizes.insert(0);
     }
