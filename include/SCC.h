@@ -14,7 +14,7 @@ using Edge = Graph::value_type;
 using NodeIterator = Graph::const_iterator;
 using Edges = std::pair<NodeIterator,NodeIterator>;
 using FinishingTimes = std::map<Vertex, int>;
-using SCCs = std::map<Vertex, Nodes>;
+using SCCs = std::map<Vertex, size_t>;
 using SCCSizes = std::multiset<size_t,std::greater<size_t>>;
 
 class SCC

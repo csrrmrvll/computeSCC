@@ -62,7 +62,7 @@ void SCC::DFS2(Vertex v)
         {
             this->explored_.insert(v);
             s.push(v);
-            this->sccs_[leader].insert(v);
+            ++this->sccs_[leader];
             const Edges edges = this->g_.equal_range(v);
             for (auto it = edges.first; it != edges.second; ++it)
             {
@@ -110,7 +110,7 @@ SCCSizes SCC::compute()
     for (auto & v : this->sccs_)
     {
         if (count-- == 0) break;
-        sccSizes.insert(v.second.size());
+        sccSizes.insert(v.second);
     }
     while (count-- != 0)
     {

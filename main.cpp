@@ -46,16 +46,8 @@ ostream & operator<<(ostream & out, const SCCSizes & v)
 
 int main()
 {
-    try
-    {
-        SCC scc(read());
-        const SCCSizes sizes = scc.compute();
-        cout << "SCC sizes: " << sizes << endl;
-        return 0;
-    }
-    catch (const exception & e)
-    {
-        cout << "Error: " << e.what() << endl;
-        return 1;
-    }
+    SCC scc(read());
+    const SCCSizes sizes = scc.compute();
+    cout << "SCC sizes: " << sizes << endl;
+    return 0;
 }

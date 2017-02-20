@@ -32,7 +32,6 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/AdjacencyList.h" />
 		<Unit filename="include/Edge.h" />
