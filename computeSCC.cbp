@@ -22,6 +22,7 @@
 				<Option type="1" />
 				<Option compiler="gnu_gcc_compiler_x64" />
 				<Compiler>
+					<Add option="-O2" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
