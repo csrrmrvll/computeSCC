@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Graphs read()
+Graphs && read()
 {
     Graph g, gRev;
     ifstream is;
@@ -26,8 +26,6 @@ Graphs read()
             Vector v;
             istringstream iss(line);
             copy(istream_iterator<int>(iss),istream_iterator<int>(), back_insert_iterator<Vector>(v));
-            copy(begin(v), end(v), ostream_iterator<int>(cout, " "));
-            cout << endl;
             g.insert(make_pair(Vertex(v[0]), Vertex(v[1])));
             gRev.insert(make_pair(Vertex(v[1]), Vertex(v[0])));
         }
@@ -48,8 +46,16 @@ ostream & operator<<(ostream & out, const SCCSizes & v)
 
 int main()
 {
-    SCC scc(read());
-    const SCCSizes sizes = scc.compute();
-    cout << "SCC sizes: " << sizes << endl;
-    return 0;
+    try
+    {
+        SCC scc(read());
+        const SCCSizes sizes = scc.compute();
+        cout << "SCC sizes: " << sizes << endl;
+        return 0;
+    }
+    catch (const exception & e)
+    {
+        cout << "Error: " << e.what() << endl;
+        return 1;
+    }
 }
