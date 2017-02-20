@@ -11,12 +11,12 @@ Graphs read()
 {
     Graph g, gRev;
     ifstream is;
-    is.open("/home/csr/dev/computeSCC/SCC.txt",ios::in);
-//    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc1.txt",ios::in);
-//    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc2.txt",ios::in);
-//    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc3.txt",ios::in);
-//    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc4.txt",ios::in);
-//    is.open("C:\\Users\\csr\\Documents\\Algorithm design and analyisis I\\programming assignments\\computeSCC\\tc5.txt",ios::in);
+    is.open("SCC.txt",ios::in);
+//    is.open("tc1.txt",ios::in);
+//    is.open("tc2.txt",ios::in);
+//    is.open("tc3.txt",ios::in);
+//    is.open("tc4.txt",ios::in);
+//    is.open("tc5.txt",ios::in);
     if (is.is_open())
     {
         string line;
