@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Graphs && read()
+Graphs read()
 {
     Graph g, gRev;
     ifstream is;
@@ -35,7 +35,7 @@ Graphs && read()
         throw runtime_error("File is not open!!");
     }
     is.close();
-    return move(make_pair(g, gRev));
+    return make_pair(g, gRev);
 }
 
 ostream & operator<<(ostream & out, const SCCSizes & v)
