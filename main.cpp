@@ -40,7 +40,8 @@ Graphs read()
 
 ostream & operator<<(ostream & out, const SCCSizes & v)
 {
-    copy(begin(v), end(v), ostream_iterator<int>(cout,","));
+    copy(begin(v), --end(v), ostream_iterator<int>(cout,","));
+    cout << *(--end(v)) << endl;
     return out;
 }
 
